@@ -4,14 +4,16 @@ test("GET to /api/v1/status should return 200", async () => {
 
   const responseBody = await response.json();
 
-  expect(responseBody.version).toBeDefined();
-  expect(typeof responseBody.max_connections).toEqual("number");
-  expect(typeof responseBody.opened_connections).toEqual("number");
+  expect(responseBody.dependencies.database.version).toBeDefined();
+  expect(responseBody.dependencies.database.max_connections).toEqual(100);
+  expect(responseBody.dependencies.database.opened_connections).toEqual(1);
 
   const parsedUpdatedAt = new Date(responseBody.updated_at).toISOString();
   expect(responseBody.updated_at).toEqual(parsedUpdatedAt);
 
-  expect(responseBody.max_connections).toBeGreaterThanOrEqual(
-    responseBody.opened_connections
+  expect(
+    responseBody.dependencies.database.max_connections
+  ).toBeGreaterThanOrEqual(
+    responseBody.dependencies.database.opened_connections
   );
 });
