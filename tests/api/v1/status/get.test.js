@@ -21,9 +21,9 @@ describe("POST /api/v1/status", () => {
       expect(responseBody.updated_at).toEqual(parsedUpdatedAt);
 
       expect(
-        responseBody.dependencies.database.max_connections
+        responseBody.dependencies.database.max_connections,
       ).toBeGreaterThanOrEqual(
-        responseBody.dependencies.database.opened_connections
+        responseBody.dependencies.database.opened_connections,
       );
     });
   });
